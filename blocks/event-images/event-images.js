@@ -30,6 +30,25 @@ function togglSoldOutFlag() {
   }
 }
 
+function convertDate(date) {
+/* eslint-disable prefer-const */
+  let month; let day; let
+    year;
+  [month, day, year] = date.split(' ');
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  let monthNumber = months.indexOf(month) + 1;
+  if (monthNumber.length < 2) {
+    monthNumber = `0${monthNumber}`;
+  }
+  let dayNumber = day.replace(',', '');
+  if (dayNumber.length < 2) {
+    dayNumber = `0${dayNumber}`;
+  }
+  const yearNumber = year.split('20')[1];
+
+  return (`${monthNumber}/${dayNumber}/${yearNumber}`);
+}
+
 export default function decorate(block) {
   const group = document.createElement('ul');
   const versions = [
@@ -37,6 +56,8 @@ export default function decorate(block) {
     'Display Ad 1080 x 1080',
     'Display Ad 1280 x 720',
     'Web 768 x 500',
+    'Social 1080 x 1920',
+    'Spotify Ad 640 x 640',
   ];
 
   const baseUrl = 'https://s7d1.scene7.com/is/image/JeffFoxxNA001/';
@@ -54,6 +75,7 @@ export default function decorate(block) {
   img = img.split('.')[0];
   const artist = values[keys.indexOf('Artist')];
   const date = values[keys.indexOf('Date')];
+  const datenum = convertDate(date);
 
   versions.forEach((version) => {
     const li = document.createElement('li');
@@ -65,7 +87,7 @@ export default function decorate(block) {
     display = display.replaceAll(' ', '-');
     const dimensions = display.match(/(\d+)-(\d+)$/)[0];
     const imgEl = document.createElement('img');
-    const imgPath = `${baseUrl}${display}?$img=is(JeffFoxxNA001/${img}:${dimensions})&$artist=${artist}&$date=${date}`;
+    const imgPath = `${baseUrl}${display}?$img=is(JeffFoxxNA001/${img}:${dimensions})&$artist=${artist}&$date=${date}&$datenum=${datenum}`;
     imgEl.src = imgPath;
     const link = document.createElement('a');
     link.href = imgPath;
