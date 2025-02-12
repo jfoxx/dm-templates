@@ -37,6 +37,7 @@ function convertDate(date) {
   [month, day, year] = date.split(' ');
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   let monthNumber = months.indexOf(month) + 1;
+  monthNumber = monthNumber.toString();
   if (monthNumber.length < 2) {
     monthNumber = `0${monthNumber}`;
   }
