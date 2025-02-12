@@ -93,7 +93,15 @@ export default function decorate(block) {
     link.href = imgPath;
     link.setAttribute('download', '');
     link.append(imgEl);
-    li.append(link);
+    const buttonDiv = document.createElement('div');
+    buttonDiv.className = 'button-wrapper';
+    const button = document.createElement('a');
+    button.href = imgPath;
+    button.className = 'button';
+    button.innerText = 'Download Image';
+    button.setAttribute('download', '');
+    buttonDiv.append(button);
+    li.append(link, buttonDiv);
     group.append(li);
   });
 
