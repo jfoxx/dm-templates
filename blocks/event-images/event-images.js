@@ -27,7 +27,6 @@ function togglSoldOutFlag() {
       url = url.split('&$sold-out-hide=0')[0];
       link.href = url;
     });
-    /* eslint-enable prefer-destructuring */
   }
 }
 
@@ -51,7 +50,8 @@ export default function decorate(block) {
     values.push(value.innerText);
   });
 
-  const img = 'sweat';
+  let img = values[keys.indexOf('Image')];
+  img = img.split('.')[0];
   const artist = values[keys.indexOf('Artist')];
   const date = values[keys.indexOf('Date')];
 
