@@ -1,3 +1,7 @@
+// import JSZip from 'jszip';
+
+// var zip = new JSZip;
+
 function togglSoldOutFlag() {
   const el = document.getElementById('soldoutToggle');
   if (el.checked) {
@@ -96,12 +100,25 @@ export default function decorate(block) {
     link.append(imgEl);
     const buttonDiv = document.createElement('div');
     buttonDiv.className = 'button-wrapper';
-    const button = document.createElement('a');
-    button.href = imgPath;
-    button.className = 'button';
-    button.innerText = 'Download Image';
-    button.setAttribute('download', '');
-    buttonDiv.append(button);
+    const dlButton = document.createElement('a');
+    dlButton.href = imgPath;
+    dlButton.className = 'button';
+    dlButton.innerText = 'Download';
+    dlButton.setAttribute('download', '');
+    const cpyButton = document.createElement('button');
+    cpyButton.className = 'button copy-button';
+    cpyButton.innerText = 'Copy Link';
+    cpyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(link);
+      const buttons = document.querySelectorAll('.copy-button');
+      buttons.forEach((i) => {
+        i.classList.remove('success');
+        i.innerText = 'Copy Link';
+      });
+      cpyButton.classList.add('success');
+      cpyButton.innerText = 'Link Copied!';
+    });
+    buttonDiv.append(dlButton, cpyButton);
     li.append(link, buttonDiv);
     group.append(li);
   });
@@ -110,6 +127,7 @@ export default function decorate(block) {
 
   block.append(group);
 
+  // Create the Sold Out toggle
   const soldoutText = document.createElement('p');
   soldoutText.innerText = 'Sold Out';
   const soldoutLabel = document.createElement('label');
