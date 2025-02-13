@@ -109,7 +109,8 @@ export default function decorate(block) {
     cpyButton.className = 'button copy-button';
     cpyButton.innerText = 'Copy Link';
     cpyButton.addEventListener('click', () => {
-      navigator.clipboard.writeText(link);
+      const currLink = cpyButton.parentElement.querySelector('.button').href;
+      navigator.clipboard.writeText(currLink);
       const buttons = document.querySelectorAll('.copy-button');
       buttons.forEach((i) => {
         i.classList.remove('success');
