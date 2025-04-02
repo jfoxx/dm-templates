@@ -141,7 +141,7 @@ export default function decorate(block) {
   block.prepend(soldoutDiv);
   soldoutToggle.addEventListener('change', togglSoldOutFlag);
 
-  //Title
+  // Title
   const title = document.createElement('h1');
   title.innerText = `Artist: ${artist}`;
   const dateTitle = document.createElement('h2');
