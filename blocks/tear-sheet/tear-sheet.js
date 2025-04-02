@@ -16,7 +16,6 @@ function hexToRgb(hex) {
   return `%5Cred${r}%5Cgreen${g}%5Cblue${b}%3B`;
 }
 
-
 function togglflagFlag() {
   const el = document.getElementById('flagToggle');
   if (el.checked) {
@@ -139,23 +138,22 @@ export default function decorate(block) {
 
   block.append(group);
 
-    // Create the Flag toggle
-    const flagText = document.createElement('p');
-    flagText.innerText = 'Enable Flag';
-    const flagLabel = document.createElement('label');
-    const flagToggle = document.createElement('input');
-    const flagSpan = document.createElement('span');
-    flagSpan.className = 'slider';
-    flagToggle.type = 'checkbox';
-    flagToggle.id = 'flagToggle';
-    flagLabel.append(flagToggle, flagSpan);
-    const flagDiv = document.createElement('div');
-    flagDiv.className = 'sold-out';
-    flagDiv.append(flagText, flagLabel);
-  
-    block.prepend(flagDiv);
-    flagToggle.addEventListener('change', togglflagFlag);
-  
+  // Create the Flag toggle
+  const flagText = document.createElement('p');
+  flagText.innerText = 'Enable Flag';
+  const flagLabel = document.createElement('label');
+  const flagToggle = document.createElement('input');
+  const flagSpan = document.createElement('span');
+  flagSpan.className = 'slider';
+  flagToggle.type = 'checkbox';
+  flagToggle.id = 'flagToggle';
+  flagLabel.append(flagToggle, flagSpan);
+  const flagDiv = document.createElement('div');
+  flagDiv.className = 'sold-out';
+  flagDiv.append(flagText, flagLabel);
+
+  block.prepend(flagDiv);
+  flagToggle.addEventListener('change', togglflagFlag);
 
   // Title
   const title = document.createElement('h1');
