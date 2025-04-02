@@ -16,6 +16,37 @@ function hexToRgb(hex) {
   return `%5Cred${r}%5Cgreen${g}%5Cblue${b}%3B`;
 }
 
+function togglflagFlag() {
+  const el = document.getElementById('flagToggle');
+  if (el.checked) {
+    const images = document.querySelectorAll('img');
+    const links = document.querySelectorAll('a');
+    images.forEach((image) => {
+      let url = image.src;
+      url = `${url}&$flag=0`;
+      image.src = url;
+    });
+    links.forEach((link) => {
+      let url = link.href;
+      url = `${url}&$flag=0`;
+      link.href = url;
+    });
+  } else {
+    /* eslint-disable prefer-destructuring */
+    const images = document.querySelectorAll('img');
+    const links = document.querySelectorAll('a');
+    images.forEach((image) => {
+      let url = image.src;
+      url = url.split('&$flag=0')[0];
+      image.src = url;
+    });
+    links.forEach((link) => {
+      let url = link.href;
+      url = url.split('&$flag=0')[0];
+      link.href = url;
+    });
+  }
+}
 /* eslint-disable prefer-destructuring */
 
 export default function decorate(block) {
@@ -49,6 +80,7 @@ export default function decorate(block) {
   const headline = values[keys.indexOf('Headline')];
   const subhead = values[keys.indexOf('Subhead')];
   const cta = values[keys.indexOf('Call To Action Text')];
+  const flag = values[keys.indexOf('Flag Text')];
   const headlineColor = hexToRgb(values[keys.indexOf('Headline Color')]);
   const subheadColor = hexToRgb(values[keys.indexOf('Subhead Color')]);
   let overlay = values[keys.indexOf('Color Overlay')];
@@ -70,7 +102,7 @@ export default function decorate(block) {
     const display = version.replaceAll(' ', '');
     const dimensions = display.replace('x', '-');
     const imgEl = document.createElement('img');
-    const imgPath = `${baseUrl}${display}?$img=is(${dmAcct}/${img}:${dimensions})&$headline=${headline}&$subhead=${subhead}&$head-color=${headlineColor}&$sub-color=${subheadColor}&$cta=${cta}${overlay}&$logo=${dmAcct}/${logo}`;
+    const imgPath = `${baseUrl}${display}?$img=is(${dmAcct}/${img}:${dimensions})&$headline=${headline}&$flag-text=${flag}&$subhead=${subhead}&$head-color=${headlineColor}&$sub-color=${subheadColor}&$cta=${cta}${overlay}&$logo=${dmAcct}/${logo}`;
     imgEl.src = imgPath;
     const link = document.createElement('a');
     link.href = imgPath;
@@ -105,6 +137,23 @@ export default function decorate(block) {
   block.textContent = '';
 
   block.append(group);
+
+  // Create the Flag toggle
+  const flagText = document.createElement('p');
+  flagText.innerText = 'Enable Flag';
+  const flagLabel = document.createElement('label');
+  const flagToggle = document.createElement('input');
+  const flagSpan = document.createElement('span');
+  flagSpan.className = 'slider';
+  flagToggle.type = 'checkbox';
+  flagToggle.id = 'flagToggle';
+  flagLabel.append(flagToggle, flagSpan);
+  const flagDiv = document.createElement('div');
+  flagDiv.className = 'sold-out';
+  flagDiv.append(flagText, flagLabel);
+
+  block.prepend(flagDiv);
+  flagToggle.addEventListener('change', togglflagFlag);
 
   // Title
   const title = document.createElement('h1');
