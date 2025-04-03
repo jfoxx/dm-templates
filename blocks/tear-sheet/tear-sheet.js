@@ -89,9 +89,9 @@ export default function decorate(block) {
   if (overlay === 'None' || overlay === '') {
     // no overlay
   } else if (overlay === 'light') {
-    overlay = '&$dark=0&$light=1';
-  } else if (overlay === 'dark') {
     overlay = '&$dark=1&$light=0';
+  } else if (overlay === 'dark') {
+    overlay = '&$dark=0&$light=1';
   }
 
   versions.forEach((version) => {
