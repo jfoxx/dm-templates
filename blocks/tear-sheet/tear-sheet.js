@@ -102,7 +102,7 @@ export default function decorate(block) {
     const display = version.replaceAll(' ', '');
     const dimensions = display.replace('x', '-');
     const imgEl = document.createElement('img');
-    const imgPath = `${baseUrl}${display}?$img=is(${dmAcct}/${img}:${dimensions})&$headline=${encodeURIComponent(headline)}&$flag-text=${flag}&$subhead=${encodeURIComponent(subhead)}&$head-color=${headlineColor}&$sub-color=${subheadColor}&$cta=${encodeURIComponent(cta)}${overlay}&$logo=${dmAcct}/${logo}`;
+    const imgPath = `${baseUrl}${display}?$img=is(${dmAcct}/${img}:${dimensions})&$headline=${encodeURIComponent(headline)}&$flag-text=${encodeURIComponent(flag)}&$subhead=${encodeURIComponent(subhead)}&$head-color=${headlineColor}&$sub-color=${subheadColor}&$cta=${encodeURIComponent(cta)}${overlay}&$logo=${dmAcct}/${logo}`;
     imgEl.src = imgPath;
     const link = document.createElement('a');
     link.href = imgPath;
